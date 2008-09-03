@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/flashchat/db" VERSION="20070401" COMMENT="XMLDB file for Moodle mod/flashchat"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="flashchat" COMMENT="Each entry is a chatserver / group">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="course"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" COMMENT="Course flashchat activity belongs to" PREVIOUS="id" NEXT="name"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" COMMENT="name field for moodle instances" PREVIOUS="course" NEXT="intro"/>
+        <FIELD NAME="intro" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" ENUM="false" COMMENT="General introduction of the flashchat activity" PREVIOUS="name" NEXT="introformat"/>
+        <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" COMMENT="Format of the intro field (MOODLE, HTML, MARKDOWN...)" PREVIOUS="intro" NEXT="timecreated"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="introformat" NEXT="timemodified"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" DEFAULT="0" SEQUENCE="false" ENUM="false" PREVIOUS="timecreated" NEXT="init_host"/>
+	<FIELD NAME="init_host" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" DEFAULT="*" COMMENT="primary hostname of the flashchat server" PREVIOUS="timemodified" NEXT="init_port"/>
+	<FIELD NAME="init_port" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="51127" ENUM="false" COMMENT="primary port number of the flashchat server" NEXT="init_host_s" PREVIOUS="init_host" />
+        <FIELD NAME="init_host_s" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" DEFAULT="*" COMMENT="secondary hostname of the flashchat server" PREVIOUS="init_port" NEXT="init_port_s"/>
+        <FIELD NAME="init_port_s" TYPE="int" LENGTH="5" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" DEFAULT="51127" ENUM="false" COMMENT="secondary port number of the flashchat server" NEXT="init_group" PREVIOUS="init_host_s" />
+	<FIELD NAME="init_group" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" DEFAULT="default" COMMENT="the group of the flashchat server" PREVIOUS="init_port_s" NEXT="width"/>
+	<FIELD NAME="width" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" DEFAULT="634" COMMENT="width of the flashchat client" NEXT="height" PREVIOUS="init_group" />
+	<FIELD NAME="height" TYPE="int" LENGTH="4" NOTNULL="true" UNSIGNED="true" SEQUENCE="false" ENUM="false" DEFAULT="476" COMMENT="height of the flashchat client" PREVIOUS="width" NEXT="init_room" />
+	<FIELD NAME="init_room" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" ENUM="false" COMMENT="initial chat room" PREVIOUS="height" />
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="course" UNIQUE="false" FIELDS="course"/>
+      </INDEXES>
+    </TABLE>
+  </TABLES>
+  <STATEMENTS>
+    <STATEMENT NAME="insert log_display" TYPE="insert" TABLE="log_display" COMMENT="Initial insert of records on table log_display. Each record describes how data will be showed by log reports.">
+      <SENTENCES>
+        <SENTENCE TEXT="(module, action, mtable, field) VALUES ('flashchat', 'add', 'flashchat', 'name')" />
+        <SENTENCE TEXT="(module, action, mtable, field) VALUES ('flashchat', 'update', 'flashchat', 'name')" />
+        <SENTENCE TEXT="(module, action, mtable, field) VALUES ('flashchat', 'view', 'flashchat', 'name')" />
+      </SENTENCES>
+    </STATEMENT>
+  </STATEMENTS>
+</XMLDB>
