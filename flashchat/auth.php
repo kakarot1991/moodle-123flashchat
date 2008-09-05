@@ -1,5 +1,6 @@
 <?php
- /* This page prints a particular instance of flashchat
+/**
+ * This page prints a particular instance of flashchat
  *
  * @author Sander de Boer
  * @version $Id: auth.php,v 1.0 2008/09/01 12:00:00 sdboer Exp $

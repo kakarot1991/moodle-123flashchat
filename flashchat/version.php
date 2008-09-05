@@ -1,4 +1,5 @@
 <?php 
+/**
  * This page prints a particular instance of flashchat
  *
  * @author Sander de Boer

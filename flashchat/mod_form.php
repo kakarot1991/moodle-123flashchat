@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file defines de main flashchat configuration form
  * It uses the standard core Moodle (>1.8) formslib. For
